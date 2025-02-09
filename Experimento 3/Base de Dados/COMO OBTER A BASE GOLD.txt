@@ -1,0 +1,10 @@
+Acesse para uma versão resumida: https://1drv.ms/f/c/979d854624d75a1e/EvlXqMBgecVPo8_LuT886HEBr1NjVUOeBcdtLWbneosl5A?e=TsJIgc
+
+
+ou construa a base com os passos abaixo  (base grande para disponibilizar completa).
+
+
+Passo 1: Executar o arquivo METATRADER5_DOWNLOAD.ipynb, selecionando a moeda e o período desejado.
+Passo 2: Apertar npm install
+Passo 3: Após gerar o [RATES]GOLD.json no passo 1, executar o node Estudo.js
+Passo 4: Utilizar o arquivo gerado [BD]GOLD.db no treinamento do modelo

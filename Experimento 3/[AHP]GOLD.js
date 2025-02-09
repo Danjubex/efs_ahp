@@ -1,0 +1,205 @@
+const matriz = [
+  [1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6, 9, 9],
+  [1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6, 9, 9],
+  [1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6, 9, 9],
+  [1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6, 9, 9],
+  [0.5, 0.5, 0.5, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 4, 5],
+  [0.5, 0.5, 0.5, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 4, 5],
+  [0.5, 0.5, 0.5, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 4, 5],
+  [0.5, 0.5, 0.5, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 4, 5],
+  [0.5, 0.5, 0.5, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 4, 5],
+  [0.5, 0.5, 0.5, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 4, 5],
+  [0.5, 0.5, 0.5, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 4, 5],
+  [0.5, 0.5, 0.5, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 4, 5],
+  [0.5, 0.5, 0.5, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 4, 5],
+  [0.5, 0.5, 0.5, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 4, 5],
+  [1/6, 1/6, 1/6, 1/6, 1/2, 1/2, 1/2, 1/2, 1/2, 1/2, 1/2, 1/2, 1/2, 1/2, 1, 2, 3],
+  [1/9, 1/9, 1/9, 1/9, 1/4, 1/4, 1/4, 1/4, 1/4, 1/4, 1/4, 1/4, 1/4, 1/4, 1/2, 1, 2],
+  [1/9, 1/9, 1/9, 1/9, 1/5, 1/5, 1/5, 1/5, 1/5, 1/5, 1/5, 1/5, 1/5, 1/5, 1/3, 1/2, 1]
+];
+
+// Função para calcular a Razão de Consistência
+function calcuarRazaoDeConsistencia(matriz) {
+  const n = matriz.length; // Ordem da matriz
+
+  // Normalização da Matriz
+  const pesosNormalizados = matriz.map((coluna) =>
+    coluna.reduce((soma, valor) => soma + valor, 0)
+  );
+
+  // Cálculo do Vetor Próprio
+  const vetorProprio = matriz.map((coluna, i) =>
+    coluna.map((valor) => valor / pesosNormalizados[i])
+  );
+  const mediaLinhas = vetorProprio.map((linha) =>
+    linha.reduce((soma, valor) => soma + valor, 0) / n
+  );
+
+  // Cálculo do Valor Próprio
+  const valorProprio = matriz.map((linha, i) =>
+    linha
+      .map((valor, j) => valor * vetorProprio[j][i])
+      .reduce((soma, valor) => soma + valor, 0)
+  );
+  valorProprio.forEach((valor, i) => (valorProprio[i] /= mediaLinhas[i]));
+  const somaValorProprio = valorProprio.reduce((soma, valor) => soma + valor, 0);
+
+  // Cálculo da Razão de Consistência (RC)
+  const RC = (somaValorProprio - n) / (n - 1);
+
+  return RC;
+}
+
+// Calcular a Razão de Consistência
+const razaoConsistencia = calcuarRazaoDeConsistencia(matriz);
+console.log("Razão de Consistência (RC):", razaoConsistencia);
+
+
+/*
+Essa matriz é baseada em julgamentos hipotéticos de um especialista,
+ onde acredita-se que algumas características, como a variedade da
+ manga (VARIEDADE) e os calibres históricos da área (CALIBRES),
+ têm uma importância extrema na predição da produtividade da colheita,
+ enquanto outras, como o manejo (MANEJO) e a operação (OPERAÇÃO),
+ são importantes, mas em menor grau.*/
+
+function calcularPesos(matriz) {
+  const n = matriz.length;
+  const pesos = [];
+
+  for (let i = 0; i < n; i++) {
+    let somaColuna = 0;
+    for (let j = 0; j < n; j++) {
+      somaColuna += 1/matriz[j][i];
+    }
+
+    const peso = somaColuna / n;
+    pesos.push(peso);
+  }
+
+  return pesos;
+}
+
+function calcularPesosNormalizados(matriz) {
+  const pesos = calcularPesos(matriz);
+  const somaPesos = pesos.reduce((soma, peso) => soma + peso, 0);
+  var pesosReais = pesos.map((peso) => peso / somaPesos);
+  return pesosReais;
+
+  var pesoMax = Math.max(...pesosReais);
+  var pesoMin = Math.min(...pesosReais);
+
+  console.log("pesoMax",pesoMax,"pesoMin",pesoMin,pesosReais);
+  return pesosReais.map((peso) => (peso - pesoMin)/(pesoMax - pesoMin) );
+
+}
+
+function ordenarCritérios(pesos, critérios) {
+  const critériosComPesos = critérios.map((critério, index) => ({
+    critério,
+    peso: pesos[index]
+  }));
+
+  console.log("critériosComPesos",critériosComPesos)
+
+  critériosComPesos.sort((a, b) => b.peso - a.peso);
+
+  return critériosComPesos.map((item) => item.critério);
+}
+
+
+function calcularPesosConsolidados(matrizes) {
+  const n = matrizes[0].length;
+  var pesosConsolidados = Array(n).fill(1);
+/*
+  for (const matriz of matrizes) {
+    for (let i = 0; i < n; i++) {
+      let somaColuna = 0;
+      for (let j = 0; j < n; j++) {
+        somaColuna += matriz[j][i];
+        console.log("i",i,"j",j,"matriz[j][i]",matriz[j][i])
+      }
+
+      pesosConsolidados[i] *= somaColuna/3;
+    }
+  }*/
+  pesosConsolidados = pesosConsolidados.map((feature,i)=>{
+    console.log('matrizes[0][i]',matrizes[0][i])
+      return (matrizes[0][i] + matrizes[1][i] + matrizes[2][i])/3
+  })
+  return pesosConsolidados;
+  const somaPesos = pesosConsolidados.reduce((soma, peso) => soma + peso, 0);
+  /*
+  var pesosReais = pesosConsolidados.map((peso) => peso / somaPesos);
+  var pesoMax = Math.max(...pesosReais);
+  var pesoMin = Math.min(...pesosReais);
+  console.log("pesoMax",pesoMax,"pesoMin",pesoMin,pesosReais);
+  return pesosReais.map((peso) => 1 - (peso - pesoMin)/(pesoMax - pesoMin) );
+  */
+  return pesosConsolidados.map((peso) => peso / somaPesos);
+}
+
+function calcuarRazaoDeConsistencia(matriz)
+{
+
+      const n = matriz.length; // Ordem da matriz
+
+      // Normalização da Matriz
+      const pesosNormalizados = matriz.map(coluna => coluna.reduce((soma, valor) => soma + valor, 0));
+
+      // Cálculo do Vetor Próprio
+      const vetorProprio = matriz.map((coluna, i) => coluna.map(valor => valor / pesosNormalizados[i]));
+      const mediaLinhas = vetorProprio.map(linha => linha.reduce((soma, valor) => soma + valor, 0) / n);
+
+      // Cálculo do Valor Próprio
+      const valorProprio = matriz.map((linha, i) => linha.map((valor, j) => valor * vetorProprio[j][i]).reduce((soma, valor) => soma + valor, 0));
+      valorProprio.forEach((valor, i) => valorProprio[i] /= mediaLinhas[i]);
+      const somaValorProprio = valorProprio.reduce((soma, valor) => soma + valor, 0);
+
+      // Cálculo da Razão de Consistência (RC)
+      const RC = (somaValorProprio - n) / (n - 1);
+
+      // console.log("Razão de Consistência (RC):", RC);
+      return RC;
+
+}//calcuarRazaoDeConsistencia
+
+
+function main() {
+  const critérios = [
+    "TRIPPLE RSI",
+    "MFI",
+    "TRIPPLE MFI",
+    "FIBONNACI",
+    "MEDIA SIMPLES VOLUME",
+    "MEDIA MOVEL VOLUME",
+    "RSI",
+    "MACD",
+    "BOLLINGER",
+    "OSCILADOR ESTOCASTICO",
+    "MMP",
+    "ADX",
+    "PVI",
+    "SAR",
+    "MEDIA MOVEL FECHAMENTO",
+    "MEDIAS SIMPLES FECHAMENTO",
+    "PERIODOS"
+  ];
+
+  const pesosNormalizadosGPT      = calcularPesosNormalizados(matriz);
+
+  console.log("\nPesos normalizados dos critérios pelo GPT:");
+  console.log(pesosNormalizadosGPT);
+
+  const critériosOrdenados = ordenarCritérios(pesosNormalizadosGPT, critérios);
+
+    // const critériosOrdenados = ordenarCritérios(pesosConsolidados, critérios);
+
+
+  console.log("\nCritérios ordenados por importância:");
+  console.log(critériosOrdenados);
+
+  console.log('\nRazão de Consistência (RC) DECISOR GPT',calcuarRazaoDeConsistencia(matriz)) //16.869387810153366
+}
+
+main();

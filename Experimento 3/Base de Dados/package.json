@@ -1,0 +1,26 @@
+{
+  "name": "mt5",
+  "version": "1.0.0",
+  "description": "Bots para trademarketing",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "asciichart": "^1.5.25",
+    "cross-fetch": "^4.0.0",
+    "dayjs": "^1.11.13",
+    "ml-dataset-iris": "^1.2.1",
+    "ml-random-forest": "^2.1.0",
+    "moment": "^2.30.1",
+    "moment-timezone": "^0.5.45",
+    "nn": "^0.0.7",
+    "node-fetch": "^2.7.0",
+    "simple-statistics": "^7.8.3",
+    "sqlite3": "^5.1.7",
+    "stats-analysis": "^2.0.0",
+    "timeseries-analysis": "^1.0.12"
+  }
+}

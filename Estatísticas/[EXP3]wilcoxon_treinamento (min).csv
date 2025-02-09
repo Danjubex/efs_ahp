@@ -1,0 +1,10 @@
+,CORRELATION,[RF]FEATURE IMPORTANCE,LASSO,TSNE,UMAP,PCA,RANDOM SEARCH,LAPPAS & YANNACOPOULOS,[EFS-AHP]GPT
+CORRELATION,,Dados incompatíveis,Dados incompatíveis,Dados incompatíveis,Dados incompatíveis,Dados incompatíveis,0.001953125,0.001953125,0.001953125
+[RF]FEATURE IMPORTANCE,Dados incompatíveis,,Dados incompatíveis,Dados incompatíveis,Dados incompatíveis,Dados incompatíveis,0.001953125,0.001953125,0.001953125
+LASSO,Dados incompatíveis,Dados incompatíveis,,Dados incompatíveis,Dados incompatíveis,Dados incompatíveis,0.001953125,0.001953125,0.001953125
+TSNE,Dados incompatíveis,Dados incompatíveis,Dados incompatíveis,,Dados incompatíveis,Dados incompatíveis,0.001953125,0.001953125,0.001953125
+UMAP,Dados incompatíveis,Dados incompatíveis,Dados incompatíveis,Dados incompatíveis,,Dados incompatíveis,0.001953125,0.001953125,0.001953125
+PCA,Dados incompatíveis,Dados incompatíveis,Dados incompatíveis,Dados incompatíveis,Dados incompatíveis,,0.001953125,0.001953125,0.001953125
+RANDOM SEARCH,0.001953125,0.001953125,0.001953125,0.001953125,0.001953125,0.001953125,,0.001953125,0.001953125
+LAPPAS & YANNACOPOULOS,0.001953125,0.001953125,0.001953125,0.001953125,0.001953125,0.001953125,0.001953125,,0.001953125
+[EFS-AHP]GPT,0.001953125,0.001953125,0.001953125,0.001953125,0.001953125,0.001953125,0.001953125,0.001953125,

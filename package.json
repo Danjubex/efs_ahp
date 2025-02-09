@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "@stdlib/stats-ttest": "^0.2.2",
+    "@stdlib/stats-wilcoxon": "^0.2.2",
+    "fft-js": "^0.0.12",
+    "jstat": "^1.9.6",
+    "ml-dataset-iris": "^1.2.1",
+    "ml-matrix": "^6.12.0",
+    "ml-pca": "^4.1.1",
+    "ml-random-forest": "^2.1.0",
+    "ml-regression-lasso": "^0.1.2",
+    "moment": "^2.29.4",
+    "nn": "^0.0.7",
+    "node-bayes": "^1.1.0",
+    "node-wav": "^0.0.2",
+    "simple-statistics": "^7.8.7",
+    "tsne-js": "^1.0.3",
+    "umap-js": "^1.4.0"
+  }
+}

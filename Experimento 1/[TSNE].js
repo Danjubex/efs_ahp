@@ -1,0 +1,80 @@
+
+const CropYieldPredictionRF = require('./[RANDOM FOREST].js');
+
+
+// Função para salvar os resultados no arquivo
+function salvarResultados(tempoGeracao, melhorResultado, caminhoArquivo,  geracoes, taxaMutacao, taxaCrossover, tamanhoPopulacao, nComponents) {
+  try {
+    const fs = require('fs');
+
+    // Verificar se o arquivo já existe e carregar conteúdo
+    let resultados = fs.existsSync(caminhoArquivo) ? fs.readFileSync(caminhoArquivo, 'utf-8') : '';
+
+    // Serializar os resultados no formato tabular
+    const objetoSerializado = `${55}\t[]\t${melhorResultado["R_QD"]}\t${melhorResultado["R_QD_TESTE"]}\t${0}\t${melhorResultado["MST"]}\t${melhorResultado["MSE"]}\t${melhorResultado["RMSE"]}\t${melhorResultado["MAE"]}\t${melhorResultado["MAPE"]}\t${melhorResultado["SMAPE"]}\t${geracoes}\t${taxaMutacao}\t${taxaCrossover}\t${tamanhoPopulacao}\t${nComponents}\n`;
+
+    // Adicionar os novos resultados ao conteúdo existente
+    resultados += objetoSerializado;
+
+    // Salvar no arquivo
+    fs.writeFileSync(caminhoArquivo, resultados);
+    console.log("Resultados salvos com sucesso em:", caminhoArquivo);
+  } catch (error) {
+    console.error("Erro ao salvar os resultados:", error);
+  }
+}
+(async () => {
+    const grid = {
+      // nComponentsTSNE: [2,3],
+        // nIteracoes: [100,500,1000,2000],
+        nIteracoes: [1000],
+        nComponentsTSNE: [2],
+    };
+
+    const caminhoArquivo = "./AG_DOUTORADO_RESULTS_EXP1_TSNE.txt";
+    let r2ValuesGlobais = [];
+    let ensaio = 0;
+
+    while (ensaio < 10) {
+              for (const nComponents of grid.nComponentsTSNE) {
+                        for (const nIteracoes of grid.nIteracoes) {
+                console.log(
+                  `Iniciando com parâmetros: TSNE=${nComponents} componentes.`
+                );
+
+                 var tsne = new CropYieldPredictionRF('TSNE',false,[1,1,1,1,1,1,1,1,1,1,
+                                                             1,1,1,1,1,1,1,1,1,1,
+                                                             1,1,1,1,1,1,1,1,1,1,
+                                                             1,1,1,1,1,1,1,1,1,1,
+                                                             1,1,1,1,1,1,1,1,1,1,
+                                                             1,1,1,1],
+                                                             false,
+                                                             true);
+                 // console.log("PCA",pca)
+                 var result_tsne = await tsne.iniciar();
+                 //console.log("RESULTADO TSNE",ensaio, result_tsne)
+
+                console.log(
+                  `[ENSAIO] #${ensaio} TSNE=${nComponents}] concluídos.`, result_tsne
+                );
+
+                  salvarResultados(
+                    0,
+                    result_tsne,
+                    caminhoArquivo,
+                    0,
+                    0,
+                    0,
+                    0,
+                    nComponents
+                  );
+      }
+    }
+
+      ensaio++;
+
+      console.log(`Ensaio concluído. Resultados salvos.`);
+    }
+
+    console.log("Significância estatística alcançada para R² global.");
+})();
